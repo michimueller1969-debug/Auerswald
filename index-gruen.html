@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferienhaus Kastanie – Cornberg-Rockensüß</title>
+  <meta name="description" content="Urlaub und Ferien im Ferienhaus Kastanie in Cornberg-Rockensüß – Waldhessen, Nordhessen. Bis zu 6 Personen, Kaminofen, Billardtisch, Garten.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gruen:   #4a7c59;
+      --dunkel:  #2c3e2d;
+      --hell:    #f5f0e8;
+      --beige:   #e8dfc8;
+      --text:    #333;
+      --weiss:   #fff;
+      --radius:  8px;
+      --shadow:  0 2px 12px rgba(0,0,0,.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Georgia', serif;
+      color: var(--text);
+      background: var(--weiss);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--dunkel);
+      padding: .9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    nav .logo {
+      color: var(--weiss);
+      font-size: 1.15rem;
+      font-weight: bold;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .3rem 1.4rem;
+    }
+
+    nav ul a {
+      color: var(--beige);
+      text-decoration: none;
+      font-family: sans-serif;
+      font-size: .9rem;
+      transition: color .2s;
+    }
+
+    nav ul a:hover { color: var(--weiss); }
+
+    /* ── HERO ── */
+    .hero-bild {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero {
+      background: var(--dunkel);
+      color: var(--weiss);
+      text-align: center;
+      padding: 2.5rem 2rem 2.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      margin-bottom: .6rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: .85;
+      max-width: 600px;
+      margin: 0 auto 1.8rem;
+    }
+
+    .hero .badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: .6rem;
+    }
+
+    .badge {
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 20px;
+      padding: .35rem .9rem;
+      font-family: sans-serif;
+      font-size: .85rem;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 4rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    section.full {
+      max-width: 100%;
+      background: var(--hell);
+      padding: 4rem 2rem;
+    }
+
+    section.full .inner { max-width: 900px; margin: 0 auto; }
+
+    h2 {
+      font-size: 1.7rem;
+      color: var(--dunkel);
+      margin-bottom: 1.2rem;
+      padding-bottom: .5rem;
+      border-bottom: 3px solid var(--gruen);
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: var(--gruen);
+      margin: 1.4rem 0 .5rem;
+    }
+
+    p { margin-bottom: .8rem; }
+
+    ul.liste {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1rem;
+    }
+
+    ul.liste li {
+      padding: .3rem 0 .3rem 1.5rem;
+      position: relative;
+    }
+
+    ul.liste li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--gruen);
+      font-weight: bold;
+    }
+
+    /* ── HAUS-GRID ── */
+    .etagen {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .etage-card {
+      background: var(--weiss);
+      border: 1px solid var(--beige);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .etage-card .etage-label {
+      font-family: sans-serif;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--gruen);
+      font-weight: bold;
+      margin-bottom: .4rem;
+    }
+
+    .etage-card p { font-size: .95rem; margin: 0; }
+
+    /* ── PREISE ── */
+    .preis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .preis-card {
+      background: var(--weiss);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--gruen);
+    }
+
+    .preis-card .saison {
+      font-family: sans-serif;
+      font-size: .85rem;
+      color: #666;
+      margin-bottom: .4rem;
+    }
+
+    .preis-card .preis {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--dunkel);
+    }
+
+    .preis-card .preis span {
+      font-size: 1rem;
+      color: #666;
+    }
+
+    table.zusatz {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0;
+      font-size: .95rem;
+    }
+
+    table.zusatz td {
+      padding: .5rem .8rem;
+      border-bottom: 1px solid var(--beige);
+    }
+
+    table.zusatz tr:last-child td { border-bottom: none; }
+    table.zusatz td:first-child { color: #555; }
+    table.zusatz td:last-child { font-weight: bold; text-align: right; }
+
+    /* ── BEWERTUNGEN ── */
+    .bewertungen {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .bewertung {
+      background: var(--weiss);
+      border-radius: var(--radius);
+      padding: 1.3rem;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--gruen);
+    }
+
+    .bewertung .sterne { font-size: 1.1rem; margin-bottom: .4rem; }
+    .bewertung .autor { font-family: sans-serif; font-size: .85rem; color: #666; margin-top: .6rem; }
+    .bewertung blockquote { font-style: italic; font-size: .95rem; }
+
+    /* ── KONTAKT ── */
+    .kontakt-box {
+      background: var(--dunkel);
+      color: var(--weiss);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .kontakt-box a { color: var(--beige); }
+    .kontakt-box a:hover { color: var(--weiss); }
+
+    .kontakt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .kontakt-item .label {
+      font-family: sans-serif;
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      opacity: .7;
+      margin-bottom: .3rem;
+    }
+
+    .kontakt-item .wert { font-size: 1rem; }
+
+    /* ── GALERIE PLATZHALTER ── */
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: .75rem;
+      margin-top: 1.5rem;
+    }
+
+    .galerie-grid img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--radius);
+      display: block;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .galerie-grid img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+    }
+
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.88);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lightbox.aktiv { display: flex; }
+
+    #lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 40px rgba(0,0,0,.6);
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.5rem;
+      color: white;
+      font-size: 2.2rem;
+      cursor: pointer;
+      line-height: 1;
+      background: none;
+      border: none;
+    }
+
+    /* ── BUCHUNGSINFO ── */
+    .info-kasten {
+      background: var(--hell);
+      border-left: 4px solid var(--gruen);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.2rem;
+      margin: 1rem 0;
+      font-size: .95rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dunkel);
+      color: var(--beige);
+      text-align: center;
+      padding: 2rem;
+      font-family: sans-serif;
+      font-size: .85rem;
+    }
+
+    footer a { color: var(--beige); text-decoration: none; margin: 0 .5rem; }
+    footer a:hover { color: var(--weiss); text-decoration: underline; }
+    footer .copy { margin-top: .5rem; opacity: .6; }
+
+    /* ── RESPONSIVE ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: .3rem;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background: var(--weiss);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+
+    @media (max-width: 700px) {
+      .hamburger { display: flex; }
+
+      nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--dunkel);
+        padding: 1rem 2rem 1.5rem;
+        gap: .8rem;
+      }
+
+      nav ul.offen { display: flex; }
+
+      nav { position: relative; flex-wrap: wrap; }
+
+      .hero { padding: 3rem 1.5rem; }
+      section { padding: 2.5rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#home">Ferienhaus Kastanie</a>
+  <button class="hamburger" onclick="this.nextElementSibling.classList.toggle('offen')" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
+  <ul>
+    <li><a href="#home">Startseite</a></li>
+    <li><a href="#das-haus">Das Haus</a></li>
+    <li><a href="#preise">Preise</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#region">Region</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO BILD -->
+<img class="hero-bild" src="Bilder/cropped-WhatsApp-Image-2024-07-20-at-15.08.501-3.jpeg" alt="Wohnzimmer mit Kaminofen – Ferienhaus Kastanie">
+
+<!-- HERO -->
+<div class="hero" id="home">
+  <h1>Ferienhaus Kastanie</h1>
+  <p>Urlaub und Ferien in Cornberg-Rockensüß – Waldhessen, Nordhessen</p>
+  <div class="badges">
+    <span class="badge">Bis zu 6 Personen</span>
+    <span class="badge">Kaminofen</span>
+    <span class="badge">Billardtisch</span>
+    <span class="badge">Garten &amp; Grillplatz</span>
+    <span class="badge">Haustiere willkommen</span>
+  </div>
+</div>
+
+<!-- WILLKOMMEN -->
+<section>
+  <h2>Willkommen</h2>
+  <h3>Urlaubsregion zwischen Wartburg und Herkules</h3>
+  <p>
+    Sie mögen die Gebrüder Grimm, wandern oder fahren gerne Rad – oder möchten einfach mal die Seele baumeln lassen?
+    Dann sollte das geschichts- und märchenträchtige Waldhessen Ihre Neugierde wecken, denn die Region bietet vielfältigste Möglichkeiten:
+  </p>
+  <ul class="liste">
+    <li>Wandern und entspannen Sie im Auenland an der Fulda</li>
+    <li>Folgen Sie auf der ältesten Fährtenplatte Europas den Spuren urzeitlicher Tiere</li>
+    <li>Tauchen Sie in die Märchenwelt des nordhessischen Berglands ein und besuchen Sie Frau Holles Hausberg am Hohen Meißner</li>
+    <li>Schwimmen, Rudern, Minigolf oder Tennis in der näheren Umgebung</li>
+    <li>Entspannen Sie in den Thermen der Umgebung</li>
+    <li>Besuchen Sie die Bad Hersfelder Festspiele</li>
+    <li>Genießen Sie die nordhessische Küche</li>
+  </ul>
+  <p>
+    Rockensüß kann eine über 725-jährige Geschichte nachweisen – mit spannenden Erzählungen rund um das „Bertels-Loch",
+    die „Franzosenstraße" oder den „Katzkopf".
+  </p>
+</section>
+
+<!-- DAS HAUS -->
+<section class="full" id="das-haus">
+  <div class="inner">
+    <h2>Das Haus</h2>
+    <p>Das Ferienhaus Kastanie bietet auf mehreren Etagen Platz für bis zu <strong>6 Personen</strong> und ist vollständig ausgestattet.</p>
+
+    <div class="etagen">
+      <div class="etage-card">
+        <div class="etage-label">Erdgeschoss</div>
+        <p>Waschmaschine, Trockner, Bügelmöglichkeit</p>
+      </div>
+      <div class="etage-card">
+        <div class="etage-label">Hochparterre</div>
+        <p>Küche mit Essplatz, Wohn- und Esszimmer, Kaminofen, Doppelschlafzimmer, Duschbad</p>
+      </div>
+      <div class="etage-card">
+        <div class="etage-label">1. Obergeschoss</div>
+        <p>2 Doppelschlafzimmer, Badezimmer</p>
+      </div>
+      <div class="etage-card">
+        <div class="etage-label">Dachgeschoss</div>
+        <p>Billardzimmer und Teeküche</p>
+      </div>
+      <div class="etage-card">
+        <div class="etage-label">Außenbereich</div>
+        <p>Garten mit Freisitz, Grillplatz und Feuerstelle unter der Kastanie</p>
+      </div>
+    </div>
+
+    <h3>Im Mietpreis inklusive</h3>
+    <ul class="liste">
+      <li>Strom und Wasser</li>
+      <li>Bettwäsche</li>
+      <li>Badetücher und Geschirrtücher</li>
+      <li>WLAN</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PREISE -->
+<section id="preise">
+  <h2>Preise &amp; Verfügbarkeit</h2>
+
+  <div class="preis-grid">
+    <div class="preis-card">
+      <div class="saison">Sommersaison</div>
+      <div class="saison">1. April – 30. September</div>
+      <div class="preis">70,– <span>€/Nacht</span></div>
+    </div>
+    <div class="preis-card">
+      <div class="saison">Wintersaison</div>
+      <div class="saison">1. Oktober – 30. März</div>
+      <div class="preis">75,– <span>€/Nacht</span></div>
+    </div>
+  </div>
+
+  <div class="info-kasten">
+    Der Preis pro Buchungseinheit bezieht sich auf <strong>7 Nächte</strong> für max. <strong>6 Erwachsene</strong>.
+    Anreise: Samstags ab 15:00 Uhr | Abreise: Samstags bis 10:00 Uhr.
+    Abweichende Buchungen nach Absprache möglich.
+  </div>
+
+  <h3>Eventuell zusätzlich anfallende Kosten</h3>
+  <table class="zusatz">
+    <tr><td>Endreinigung</td><td>60,00 €</td></tr>
+    <tr><td>Haustier</td><td>20,00 € / Woche</td></tr>
+    <tr><td>Kamin (Holzverbrauch)</td><td>65,00 € / Holzraummeter</td></tr>
+    <tr><td>Kaution</td><td>150,00 € (wird zurückerstattet)</td></tr>
+  </table>
+
+  <p style="font-size:.9rem;color:#555;">
+    Die Endreinigung entfällt, wenn diese durch den Gast selbst vorgenommen wird. Bei mehrwöchigen Anmietungen fällt die Endreinigung nur einmalig an.
+  </p>
+
+  <h3>Buchungsablauf</h3>
+  <ul class="liste">
+    <li>Buchungsanfrage per E-Mail oder Telefon</li>
+    <li>Anzahlung 50% – fällig spätestens 14 Tage nach Buchungsbestätigung</li>
+    <li>Restzahlung vor Anreise</li>
+  </ul>
+</section>
+
+<!-- GALERIE -->
+<section class="full" id="galerie">
+  <div class="inner">
+    <h2>Galerie</h2>
+    <p>Eindrücke vom Ferienhaus Kastanie und der Umgebung.</p>
+    <div class="galerie-grid">
+      <img src="Bilder/WhatsApp-Image-2024-07-20-at-15.08.49.jpeg"           alt="Wohnzimmer Panorama" onclick="zeigelightbox(this)">
+      <img src="Bilder/WhatsApp-Image-2024-07-20-at-15.08.50.jpeg"           alt="Wohnzimmer mit Kaminofen" onclick="zeigelightbox(this)">
+      <img src="Bilder/WhatsApp-Image-2024-07-20-at-15.08.502.jpeg"          alt="Wohnzimmer und Essbereich" onclick="zeigelightbox(this)">
+      <img src="Bilder/cropped-WhatsApp-Image-2024-07-20-at-15.08.501-1.jpeg" alt="Wohnzimmer mit Bücherregal" onclick="zeigelightbox(this)">
+      <img src="Bilder/cropped-WhatsApp-Image-2024-07-20-at-15.08.501-3.jpeg" alt="Wohnzimmer Panorama breit" onclick="zeigelightbox(this)">
+    </div>
+  </div>
+</section>
+
+<!-- BEWERTUNGEN -->
+<section id="bewertungen">
+  <h2>Das sagen unsere Gäste</h2>
+  <div class="bewertungen">
+    <div class="bewertung">
+      <div class="sterne">⭐⭐⭐⭐⭐</div>
+      <blockquote>„Das Haus ist toll, es ist alles da, was man braucht. Die Vermieterin ist supernett, das Haus liegt sehr ruhig. Klasse fanden wir den Billardtisch."</blockquote>
+      <div class="autor">Sabine Mark</div>
+    </div>
+    <div class="bewertung">
+      <div class="sterne">⭐⭐⭐⭐⭐</div>
+      <blockquote>„Das Haus ist perfekt eingerichtet und sehr gemütlich – vor allem der Kaminofen und der Billardtisch haben sehr zu unserem Wohlbefinden beigetragen."</blockquote>
+      <div class="autor">Martina Hoerth</div>
+    </div>
+    <div class="bewertung">
+      <div class="sterne">⭐⭐⭐⭐⭐</div>
+      <blockquote>„Unsere Erwartungen wurden in allen Aspekten übertroffen – tolle Landschaft, gemütliches Haus, schöner Grillplatz unter der Kastanie. Vorbehaltlose Empfehlung!"</blockquote>
+      <div class="autor">Familientreffen</div>
+    </div>
+  </div>
+</section>
+
+<!-- REGION -->
+<section class="full" id="region">
+  <div class="inner">
+    <h2>Cornberg-Rockensüß</h2>
+    <p>
+      Das Ferienhaus liegt im Ortsteil Rockensüß der Gemeinde Cornberg im nordhessischen Bergland –
+      einer Region mit über 725-jähriger Geschichte und faszinierender Natur.
+    </p>
+    <p>
+      Die Lage zwischen Wartburg und Herkules macht Waldhessen zum idealen Ausgangspunkt für Ausflüge:
+      Kassel mit dem Bergpark Wilhelmshöhe, Eisenach mit der Wartburg, das Märchenland rund um die Gebrüder Grimm
+      und viele weitere Sehenswürdigkeiten sind in kurzer Fahrzeit erreichbar.
+    </p>
+    <ul class="liste">
+      <li>Wanderwege direkt vor der Haustür</li>
+      <li>Älteste Fährtenplatte Europas in der Nähe (mit Gästeführer)</li>
+      <li>Hoher Meißner – Hausberg von Frau Holle</li>
+      <li>Bad Hersfelder Festspiele</li>
+      <li>Thermen und Bäder der Umgebung</li>
+      <li>Minigolf, Tennis, Rudern und Schwimmen</li>
+    </ul>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <h2>Kontakt &amp; Buchung</h2>
+  <p>
+    Bei Buchungsinteresse kontaktieren Sie uns bitte – wir senden Ihnen gerne ein konkretes Angebot.
+  </p>
+  <div class="kontakt-box">
+    <div class="kontakt-grid">
+      <div class="kontakt-item">
+        <div class="label">E-Mail</div>
+        <div class="wert"><a href="mailto:e.auerswald@yahoo.de">e.auerswald@yahoo.de</a></div>
+      </div>
+      <div class="kontakt-item">
+        <div class="label">Telefon</div>
+        <div class="wert"><a href="tel:+495650800">(+49) 5650 800</a></div>
+      </div>
+      <div class="kontakt-item">
+        <div class="label">Erreichbarkeit</div>
+        <div class="wert">In der Regel bis 20:00 Uhr</div>
+      </div>
+      <div class="kontakt-item">
+        <div class="label">Adresse</div>
+        <div class="wert">Cornberg-Rockensüß, Hessen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <strong>Ferienhaus Kastanie</strong> – Cornberg-Rockensüß
+  </div>
+  <div style="margin-top:.5rem;">
+    <a href="mailto:e.auerswald@yahoo.de">e.auerswald@yahoo.de</a> &nbsp;|&nbsp;
+    <a href="tel:+495650800">(+49) 5650 800</a>
+  </div>
+  <div style="margin-top:.7rem;">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+  </div>
+  <div class="copy">&copy; 2026 Ferienhaus Kastanie</div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="schließelightbox()">
+  <button id="lightbox-close" onclick="schließelightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function zeigelightbox(el) {
+    document.getElementById('lightbox-img').src = el.src;
+    document.getElementById('lightbox-img').alt = el.alt;
+    document.getElementById('lightbox').classList.add('aktiv');
+  }
+  function schließelightbox() {
+    document.getElementById('lightbox').classList.remove('aktiv');
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') schließelightbox();
+  });
+</script>
+
+</body>
+</html>
