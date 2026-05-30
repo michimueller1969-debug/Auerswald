@@ -67,11 +67,17 @@
     nav ul a:hover { color: var(--weiss); }
 
     /* ── HERO ── */
+    .hero-banner {
+      width: 100%;
+      height: 360px;            /* wird per JS an den Viewport angepasst */
+      overflow: hidden;
+      position: relative;
+    }
     .hero-bild {
       width: 100%;
-      max-height: 420px;
-      object-fit: cover;
+      height: auto;
       display: block;
+      will-change: transform;
     }
 
     .hero {
@@ -416,27 +422,62 @@
       height: 2px;
       background: var(--weiss);
       border-radius: 2px;
-      transition: all .3s;
+      transition: transform .3s, opacity .3s;
     }
+
+    /* Hamburger -> X */
+    .hamburger.aktiv span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.aktiv span:nth-child(2) { opacity: 0; }
+    .hamburger.aktiv span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    body.menu-offen { overflow: hidden; }
 
     @media (max-width: 700px) {
       .hamburger { display: flex; }
 
+      nav { position: sticky; }
+
+      /* Vollbild-Overlay-Menü mit großen Buttons */
       nav ul {
         display: none;
         flex-direction: column;
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: var(--nav-h, 58px);
         left: 0;
         right: 0;
+        bottom: 0;
         background: var(--dunkel);
-        padding: 1rem 2rem 1.5rem;
-        gap: .8rem;
+        padding: 1.4rem 2rem 2.5rem;
+        gap: 0;
+        z-index: 90;
+        overflow-y: auto;
+        border-top: 1px solid rgba(255,255,255,.12);
       }
 
       nav ul.offen { display: flex; }
 
-      nav { position: relative; flex-wrap: wrap; }
+      nav ul li { width: 100%; }
+      nav ul li + li { border-top: 1px solid rgba(255,255,255,.1); }
+
+      nav ul a {
+        display: block;
+        width: 100%;
+        padding: 1.15rem .2rem;
+        font-size: 1.2rem;
+        color: var(--beige);
+      }
+      nav ul a:active { color: var(--weiss); }
+
+      /* Kontakt als hervorgehobener Button */
+      nav ul li.cta { border-top: none; margin-top: 1.2rem; }
+      nav ul li.cta a {
+        background: var(--gruen);
+        color: var(--weiss);
+        text-align: center;
+        font-weight: bold;
+        border-radius: var(--radius);
+        padding: 1rem;
+      }
 
       .hero { padding: 3rem 1.5rem; }
       section { padding: 2.5rem 1.2rem; }
@@ -448,21 +489,23 @@
 <!-- NAV -->
 <nav>
   <a class="logo" href="#home">Ferienhaus Kastanie</a>
-  <button class="hamburger" onclick="this.nextElementSibling.classList.toggle('offen')" aria-label="Menü">
+  <button class="hamburger" id="navToggle" aria-label="Menü" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
-  <ul>
+  <ul id="navMenu">
     <li><a href="#home">Startseite</a></li>
     <li><a href="#das-haus">Das Haus</a></li>
     <li><a href="#preise">Preise</a></li>
     <li><a href="#galerie">Galerie</a></li>
     <li><a href="#region">Region</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
+    <li class="cta"><a href="#kontakt">Kontakt</a></li>
   </ul>
 </nav>
 
-<!-- HERO BILD -->
-<img class="hero-bild" src="Bilder/cropped-WhatsApp-Image-2024-07-20-at-15.08.501-3.jpeg" alt="Wohnzimmer mit Kaminofen – Ferienhaus Kastanie">
+<!-- HERO BILD (Parallax) -->
+<div class="hero-banner">
+  <img class="hero-bild" src="Bilder/cropped-WhatsApp-Image-2024-07-20-at-15.08.501-3.jpeg" alt="Wohnzimmer mit Kaminofen – Ferienhaus Kastanie">
+</div>
 
 <!-- HERO -->
 <div class="hero" id="home">
@@ -709,12 +752,42 @@
 <div id="lightbox" onclick="schließelightbox()">
   <button id="lightbox-close" onclick="schließelightbox()">&times;</button>
   <button class="lightbox-nav" id="lightbox-prev" onclick="event.stopPropagation(); navigiere(-1)">&#8249;</button>
-  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+  <img id="lightbox-img" alt="" onclick="event.stopPropagation()">
   <button class="lightbox-nav" id="lightbox-next" onclick="event.stopPropagation(); navigiere(1)">&#8250;</button>
   <div id="lightbox-counter"></div>
 </div>
 
 <script>
+  // ── Mobile-Menü (Vollbild-Overlay + Hamburger-Animation) ──
+  (function() {
+    var nav = document.querySelector('nav');
+    var toggle = document.getElementById('navToggle');
+    var menu = document.getElementById('navMenu');
+    function setNavH() {
+      document.documentElement.style.setProperty('--nav-h', nav.offsetHeight + 'px');
+    }
+    function close() {
+      menu.classList.remove('offen');
+      toggle.classList.remove('aktiv');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-offen');
+    }
+    setNavH();
+    window.addEventListener('resize', function() {
+      setNavH();
+      if (window.innerWidth > 700) close();
+    });
+    toggle.addEventListener('click', function() {
+      var offen = menu.classList.toggle('offen');
+      toggle.classList.toggle('aktiv', offen);
+      toggle.setAttribute('aria-expanded', offen ? 'true' : 'false');
+      document.body.classList.toggle('menu-offen', offen);
+    });
+    menu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', close);
+    });
+  })();
+
   var galeriebilder = [];
   var aktuellerIndex = 0;
 
@@ -750,6 +823,42 @@
     if (e.key === 'ArrowRight')  navigiere(1);
     if (e.key === 'ArrowLeft')   navigiere(-1);
   });
+
+  // ── Hero-Bild Parallax (wie K+S) ──
+  (function() {
+    var container = document.querySelector('.hero-banner');
+    var img = container && container.querySelector('img');
+    if (!container || !img) return;
+
+    var DESKTOP_HEIGHT = 360;          // max. Banner-Höhe auf großen Screens
+    var STRENGTH       = 1.5;          // Parallax-Geschwindigkeit
+    var IMG_RATIO      = 1599 / 500;   // Seitenverhältnis des Hero-Bildes
+
+    function syncHeight() {
+      // Container niedriger als die natürliche Bildhöhe → Parallax-Spielraum
+      var maxH = (window.innerWidth / IMG_RATIO) * 0.7;
+      container.style.height = Math.min(DESKTOP_HEIGHT, Math.round(maxH)) + 'px';
+    }
+
+    function update() {
+      var rect = container.getBoundingClientRect();
+      var containerH = rect.height;
+      var imgH = img.offsetHeight;
+      var extra = imgH - containerH;
+      if (extra <= 0) { img.style.transform = ''; return; }
+      var scrollY = window.scrollY || window.pageYOffset || 0;
+      var bannerAbsTop = rect.top + scrollY;
+      var totalRange = Math.max(1, bannerAbsTop + containerH);
+      var progress = Math.max(0, Math.min(1, (scrollY / totalRange) * STRENGTH));
+      img.style.transform = 'translateY(' + (-extra * progress) + 'px)';
+    }
+
+    syncHeight();
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', function() { syncHeight(); update(); });
+    if (!img.complete) img.addEventListener('load', update);
+  })();
 </script>
 
 </body>
