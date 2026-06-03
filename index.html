@@ -169,13 +169,16 @@
 
     /* ── HAUS-GRID ── */
     .etagen {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 1rem;
       margin: 1.5rem 0;
     }
 
     .etage-card {
+      flex: 1 1 240px;
+      max-width: 280px;
       background: var(--weiss);
       border: 1px solid var(--beige);
       border-radius: var(--radius);
@@ -481,6 +484,9 @@
 
       .hero { padding: 3rem 1.5rem; }
       section { padding: 2.5rem 1.2rem; }
+
+      /* Etagen-Boxen füllen die Breite auf dem Handy */
+      .etage-card { max-width: none; }
     }
   </style>
 </head>
@@ -710,7 +716,7 @@
     <div class="kontakt-grid">
       <div class="kontakt-item">
         <div class="label">E-Mail</div>
-        <div class="wert"><a href="mailto:e.auerswald@yahoo.de">e.auerswald@yahoo.de</a></div>
+        <div class="wert"><a href="/cdn-cgi/l/email-protection#3c59125d49594e4f4b5d50587c455d545353125859"><span class="__cf_email__" data-cfemail="a1c48fc0d4c4d3d2d6c0cdc5e1d8c0c9cece8fc5c4">[email&#160;protected]</span></a></div>
       </div>
       <div class="kontakt-item">
         <div class="label">Telefon</div>
@@ -734,7 +740,7 @@
     <strong>Ferienhaus Kastanie</strong> – Cornberg-Rockensüß
   </div>
   <div style="margin-top:.5rem;">
-    <a href="mailto:e.auerswald@yahoo.de">e.auerswald@yahoo.de</a> &nbsp;|&nbsp;
+    <a href="/cdn-cgi/l/email-protection#abce85cadeced9d8dccac7cfebd2cac3c4c485cfce"><span class="__cf_email__" data-cfemail="a4c18ac5d1c1d6d7d3c5c8c0e4ddc5cccbcb8ac0c1">[email&#160;protected]</span></a> &nbsp;|&nbsp;
     <a href="tel:+495650921138">(+49) 5650 921138</a>
   </div>
   <div style="margin-top:.7rem;">
@@ -753,7 +759,7 @@
   <div id="lightbox-counter"></div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── Mobile-Menü (Vollbild-Overlay + Hamburger-Animation) ──
   (function() {
     var nav = document.querySelector('nav');
