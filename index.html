@@ -167,6 +167,116 @@
       font-weight: bold;
     }
 
+    /* ── UNTERNEHMUNGEN ── */
+    .ausflug-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-auto-rows: 1fr;
+      gap: 1rem;
+      margin: 1.2rem 0 2rem;
+    }
+
+    .ausflug-card {
+      background: var(--weiss);
+      border: 1px solid var(--beige);
+      border-left: 4px solid var(--gruen);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.2rem 1.2rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ausflug-card .ort {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: .6rem;
+      margin-bottom: .5rem;
+    }
+
+    .ausflug-card .ort b {
+      font-size: 1.05rem;
+      color: var(--dunkel);
+    }
+
+    .ausflug-card .km {
+      flex: 0 0 auto;
+      font-family: sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      color: var(--gruen);
+      background: var(--hell);
+      border-radius: 999px;
+      padding: .2rem .6rem;
+      white-space: nowrap;
+    }
+
+    .ausflug-card p {
+      font-size: .92rem;
+      line-height: 1.55;
+      margin: 0 0 .9rem;
+      color: #4a3526;
+    }
+
+    /* Klickbare Karte mit Hintergrundbild */
+    a.ausflug-card {
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    a.ausflug-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 26px rgba(62,26,10,.28);
+    }
+
+    .ausflug-card--bild {
+      position: relative;
+      overflow: hidden;
+      border-left: none;
+      border-color: transparent;
+      color: var(--weiss);
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+    }
+    .ausflug-card--bild::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(62,26,10,.35), rgba(62,26,10,.85)),
+                  var(--bg-bild) center/cover no-repeat;
+      transition: transform .4s ease;
+      z-index: 0;
+    }
+    a.ausflug-card--bild:hover::before { transform: scale(1.05); }
+    .ausflug-card--bild > * { position: relative; z-index: 1; }
+    .ausflug-card--bild .ort b { color: var(--weiss); }
+    .ausflug-card--bild .km {
+      color: var(--weiss);
+      background: rgba(255,255,255,.22);
+    }
+    .ausflug-card--bild p { color: rgba(255,255,255,.94); }
+    .ausflug-card .mehr {
+      display: inline-block;
+      margin-top: .7rem;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+      color: var(--gruen);
+    }
+    .ausflug-card--bild .mehr { color: var(--weiss); }
+
+    /* Bild unterhalb des Textes – unten ausgerichtet, damit alle Bünde auf gleicher Höhe liegen */
+    .ausflug-card .karte-bild {
+      display: block;
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      margin-top: auto;
+    }
+
     /* ── HAUS-GRID ── */
     .etagen {
       display: flex;
@@ -503,7 +613,7 @@
     <li><a href="#das-haus">Das Haus</a></li>
     <li><a href="#preise">Preise</a></li>
     <li><a href="#galerie">Galerie</a></li>
-    <li><a href="#region">Region</a></li>
+    <li><a href="#unternehmungen">Unternehmungen</a></li>
     <li class="cta"><a href="#kontakt">Kontakt</a></li>
   </ul>
 </nav>
@@ -683,9 +793,10 @@
 </section>
 
 <!-- REGION -->
-<section class="full" id="region">
+<!-- UNTERNEHMUNGEN -->
+<section class="full" id="unternehmungen">
   <div class="inner">
-    <h2>Cornberg-Rockensüß</h2>
+    <h2>Region &amp; Unternehmungen</h2>
     <p>
       Das Ferienhaus liegt im Ortsteil Rockensüß der Gemeinde Cornberg im nordhessischen Bergland –
       einer Region mit über 725-jähriger Geschichte und faszinierender Natur.
@@ -703,6 +814,79 @@
       <li>Thermen und Bäder der Umgebung</li>
       <li>Minigolf, Tennis, Rudern und Schwimmen</li>
     </ul>
+
+    <p>
+      Aus dem Feriendomizil erreichen Sie zahlreiche Ausflugsziele –
+      von der näheren Umgebung bis zu lohnenden Tagestouren.
+    </p>
+
+    <h3>Nähere Umgebung</h3>
+    <div class="ausflug-grid">
+      <a class="ausflug-card" href="https://www.cornberg.de" target="_blank" rel="noopener">
+        <div class="ort"><b>Cornberg</b><span class="km">2 km</span></div>
+        <p>Kloster Cornberg, Sandsteinmuseum (Europas größte Saurier-Fährtenplatte), Kulturbühne, Kegelbahn, Restaurant, ehemaliger Sandsteinbruch mit floristischer, faunistischer und geologischer Vielfalt.</p>
+        <img class="karte-bild" src="Bilder/cornberg.jpg?v=2" alt="Kloster Cornberg" loading="lazy">
+        <span class="mehr">cornberg.de ↗</span>
+      </a>
+      <a class="ausflug-card" href="https://www.sontra.de" target="_blank" rel="noopener">
+        <div class="ort"><b>Sontra</b><span class="km">6 km</span></div>
+        <p>Freibad, Mühlen- und Bergbaumuseum, Segelflugplatz, Kneippanlage, Minigolf, Angeln, Waldlehrpfad.</p>
+        <img class="karte-bild" src="Bilder/sontra.jpg" alt="Sontra" loading="lazy">
+        <span class="mehr">sontra.de ↗</span>
+      </a>
+      <a class="ausflug-card" href="https://www.bebra.de" target="_blank" rel="noopener">
+        <div class="ort"><b>Bebra</b><span class="km">10 km</span></div>
+        <p>Breitenbacher Seen, Baden, Segeln, Rudern, Eisenbahnmuseum.</p>
+        <img class="karte-bild" src="Bilder/bebra.jpg" alt="Bebra" loading="lazy">
+        <span class="mehr">bebra.de ↗</span>
+      </a>
+      <a class="ausflug-card" href="https://www.rotenburg.de" target="_blank" rel="noopener">
+        <div class="ort"><b>Rotenburg an der Fulda</b><span class="km">16 km</span></div>
+        <p>Fachwerkstadt, Floßfahrt mit dem „Fuldaböckchen“, Reit- und Kanutouren, Kunstmuseum Muzzzka, Heimatmuseum, Minigolf, Hüttengaudi in der Rodenberg Alm, Aufstieg zum Alheimer Turm mit Einkehr in die Alheimer Hütte, Kuckucksmarkt in Braach.</p>
+        <img class="karte-bild" src="Bilder/rotenburg.jpg" alt="Rotenburg an der Fulda" loading="lazy">
+        <span class="mehr">rotenburg.de ↗</span>
+      </a>
+      <a class="ausflug-card" href="https://www.bad-hersfeld.de" target="_blank" rel="noopener">
+        <div class="ort"><b>Bad Hersfeld</b><span class="km">26 km</span></div>
+        <p>Kur- und Festspielstadt: Kurpark, Stiftsruine, Konrad-Duden-Museum.</p>
+        <img class="karte-bild" src="Bilder/bad-hersfeld.jpg" alt="Bad Hersfeld" loading="lazy">
+        <span class="mehr">bad-hersfeld.de ↗</span>
+      </a>
+      <a class="ausflug-card" href="https://www.eschwege.de" target="_blank" rel="noopener">
+        <div class="ort"><b>Eschwege</b><span class="km">24 km</span></div>
+        <p>Werratalsee, Segeln, Rudern, Surfen.</p>
+        <img class="karte-bild" src="Bilder/eschwege.jpg" alt="Eschwege" loading="lazy">
+        <span class="mehr">eschwege.de ↗</span>
+      </a>
+    </div>
+
+    <h3>Tagesausflüge</h3>
+    <div class="ausflug-grid">
+      <div class="ausflug-card">
+        <div class="ort"><b>Bad Salzungen</b><span class="km">47 km</span></div>
+        <p>Keltenbad, Sole-Quellen, Gradierwerk.</p>
+      </div>
+      <div class="ausflug-card">
+        <div class="ort"><b>Eisenach</b><span class="km">50 km</span></div>
+        <p>Wartburg, Bachhaus, Lutherhaus, Altstadt, Thüringer Museum, Rennsteig-Höhenweg bei Eisenach.</p>
+      </div>
+      <div class="ausflug-card">
+        <div class="ort"><b>Kassel</b><span class="km">60 km</span></div>
+        <p>Schloss Wilhelmshöhe, Herkules, Brüder-Grimm-Museum, Tapeten-Museum, Marmorbad, Löwenburg.</p>
+      </div>
+      <div class="ausflug-card">
+        <div class="ort"><b>Fritzlar</b><span class="km">61 km</span></div>
+        <p>Dom- und Kaiserstadt: Dom, Stadtmauer mit Wehrtürmen, Rolandsbrunnen, Altstadt, historische Fachwerkhäuser.</p>
+      </div>
+      <div class="ausflug-card">
+        <div class="ort"><b>Fulda</b><span class="km">77 km</span></div>
+        <p>Barockstadt: Dom/Michaelskirche, Orangerie, Adelspalais, Altstadt.</p>
+      </div>
+      <div class="ausflug-card">
+        <div class="ort"><b>Waldeck / Edersee</b><span class="km">79 km</span></div>
+        <p>Staumauer, Nationalpark Kellerwald-Edersee, Schloss Waldeck.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -716,7 +900,7 @@
     <div class="kontakt-grid">
       <div class="kontakt-item">
         <div class="label">E-Mail</div>
-        <div class="wert"><a href="/cdn-cgi/l/email-protection#3c59125d49594e4f4b5d50587c455d545353125859"><span class="__cf_email__" data-cfemail="a1c48fc0d4c4d3d2d6c0cdc5e1d8c0c9cece8fc5c4">[email&#160;protected]</span></a></div>
+        <div class="wert"><a href="/cdn-cgi/l/email-protection#f297dc938797808185939e96b28b939a9d9ddc9697"><span class="__cf_email__" data-cfemail="7a1f541b0f1f08090d1b161e3a031b121515541e1f">[email&#160;protected]</span></a></div>
       </div>
       <div class="kontakt-item">
         <div class="label">Telefon</div>
@@ -740,7 +924,7 @@
     <strong>Ferienhaus Kastanie</strong> – Cornberg-Rockensüß
   </div>
   <div style="margin-top:.5rem;">
-    <a href="/cdn-cgi/l/email-protection#abce85cadeced9d8dccac7cfebd2cac3c4c485cfce"><span class="__cf_email__" data-cfemail="a4c18ac5d1c1d6d7d3c5c8c0e4ddc5cccbcb8ac0c1">[email&#160;protected]</span></a> &nbsp;|&nbsp;
+    <a href="/cdn-cgi/l/email-protection#cbaee5aabeaeb9b8bcaaa7af8bb2aaa3a4a4e5afae"><span class="__cf_email__" data-cfemail="7f1a511e0a1a0d0c081e131b3f061e171010511b1a">[email&#160;protected]</span></a> &nbsp;|&nbsp;
     <a href="tel:+495650921138">(+49) 5650 921138</a>
   </div>
   <div style="margin-top:.7rem;">
