@@ -609,7 +609,7 @@
     <span></span><span></span><span></span>
   </button>
   <ul id="navMenu">
-    <li><a href="#home">Startseite</a></li>
+    <li><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Startseite</a></li>
     <li><a href="#das-haus">Das Haus</a></li>
     <li><a href="#preise">Preise</a></li>
     <li><a href="#galerie">Galerie</a></li>
@@ -927,6 +927,33 @@
         <div class="wert">36219 Cornberg-Rockensüß, Hessen</div>
       </div>
     </div>
+  </div>
+
+  <div style="margin-top:2.5rem;background:var(--hell);border-radius:var(--radius);padding:2rem;border-top:4px solid var(--gruen);">
+    <h3 style="font-size:1.3rem;color:var(--dunkel);margin-bottom:.3rem;">Jetzt Anfrage stellen</h3>
+    <p style="font-family:sans-serif;font-size:.9rem;color:#666;margin-bottom:1.5rem;">Teilen Sie uns Ihren Wunschzeitraum mit – wir melden uns schnellstmöglich bei Ihnen.</p>
+    <form action="mailto:info@ferienhaus-cornberg-rockensuess.de" method="post" enctype="text/plain">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div>
+          <label style="font-family:sans-serif;font-size:.85rem;color:#555;display:block;margin-bottom:.3rem;">Name *</label>
+          <input type="text" name="Name" required style="width:100%;padding:.75rem 1rem;border:1px solid #d5c5b0;border-radius:var(--radius);font-size:.95rem;background:var(--weiss);">
+        </div>
+        <div>
+          <label style="font-family:sans-serif;font-size:.85rem;color:#555;display:block;margin-bottom:.3rem;">E-Mail *</label>
+          <input type="email" name="Email" required style="width:100%;padding:.75rem 1rem;border:1px solid #d5c5b0;border-radius:var(--radius);font-size:.95rem;background:var(--weiss);">
+        </div>
+      </div>
+      <div style="margin-top:1rem;">
+        <label style="font-family:sans-serif;font-size:.85rem;color:#555;display:block;margin-bottom:.3rem;">Reisezeitraum</label>
+        <input type="text" name="Reisezeitraum" placeholder="z.B. 01.08. – 08.08.2026" style="width:100%;padding:.75rem 1rem;border:1px solid #d5c5b0;border-radius:var(--radius);font-size:.95rem;background:var(--weiss);">
+      </div>
+      <div style="margin-top:1rem;">
+        <label style="font-family:sans-serif;font-size:.85rem;color:#555;display:block;margin-bottom:.3rem;">Nachricht</label>
+        <textarea name="Nachricht" rows="5" style="width:100%;padding:.75rem 1rem;border:1px solid #d5c5b0;border-radius:var(--radius);font-size:.95rem;resize:vertical;font-family:'Georgia',serif;background:var(--weiss);"></textarea>
+      </div>
+      <button type="submit" style="margin-top:1.4rem;background:var(--gruen);color:var(--weiss);border:none;border-radius:var(--radius);padding:.9rem 2.5rem;font-family:sans-serif;font-size:1rem;font-weight:bold;cursor:pointer;letter-spacing:.03em;transition:background .2s;" onmouseover="this.style.background='var(--dunkel)'" onmouseout="this.style.background='var(--gruen)'">✉ Anfrage senden</button>
+      <p style="margin-top:.8rem;font-family:sans-serif;font-size:.8rem;color:#888;">* Pflichtfelder</p>
+    </form>
   </div>
 </section>
 
